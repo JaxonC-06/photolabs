@@ -4,11 +4,15 @@ const PhotoListItem = (props) => {
   const {id, location, urls, user} = props.sampleData;
 
   return (
-    <div key={id}>
-      <img src={urls.regular} />
-      <img src={user.profile} />
-      <p>{user.name}</p>
-      <p>{location.city}, {location.country}</p>
+    <div key={id} className="photo-list__item">
+      <img src={urls.regular} className="photo-list__image"/>
+      <div className="photo-list__user-details">
+        <img src={user.profile} className="photo-list__user-profile"/>
+        <div>
+          <p className="photo-list__user-info">{user.name}</p>
+          <p className="photo-list__user-location">{location.city}, {location.country}</p>
+        </div>
+      </div>
     </div>
   )
 };
