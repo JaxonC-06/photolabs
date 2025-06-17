@@ -3,15 +3,12 @@ import "../styles/PhotoListItem.scss";
 import { useState } from "react";
 
 const PhotoListItem = (props) => {
-  const [liked, setLiked] = useState(false);
-
-  const switchLiked = () => setLiked((liked === true) ? false : true);
-
-  const {id, location, urls, user} = props.photo;
+  const {key, photo, favorites, toggleFavorite} = props;
+  const {id, location, urls, user} = photo;
 
   return (
     <div className="photo-list__item">
-      <PhotoFavButton liked={liked} switchLiked={switchLiked} />
+      <PhotoFavButton id={id} favorites={favorites} toggleFavorite={toggleFavorite} />
       <img src={urls.regular} className="photo-list__image"/>
       <div className="photo-list__user-details">
         <img src={user.profile} className="photo-list__user-profile"/>
