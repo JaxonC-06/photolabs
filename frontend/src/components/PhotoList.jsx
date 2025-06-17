@@ -53,10 +53,10 @@ const sampleDataForPhotoList = [
 ];
 
 const PhotoList = () => {
-  const photoMap = sampleDataForPhotoList.map((photoData, index) => (
+  const photoMap = sampleDataForPhotoList.map((photoData) => (
     <li>
       <PhotoListItem
-        key={index}
+        key={photoData.id}
         photo={photoData}
       />
     </li>
