@@ -1,26 +1,10 @@
 import "../styles/TopicList.scss";
 import TopicListItem from "./TopicListItem";
 
-const sampleDataForTopicList = [
-  {
-    id: 1,
-    slug: "topic-1",
-    title: "Nature",
-  },
-  {
-    id: 2,
-    slug: "topic-2",
-    title: "Travel",
-  },
-  {
-    id: 3,
-    slug: "topic-3",
-    title: "People",
-  },
-];
-
-const TopicList = () => {
-  const topicMap = sampleDataForTopicList.map((topic) => (
+const TopicList = (props) => {
+  const { topics } = props;
+  
+  const topicMap = topics.map((topic) => (
     <TopicListItem 
       key={topic.id} 
       slug={topic.slug} 
