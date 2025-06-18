@@ -1,4 +1,5 @@
 import HomeRoute from './routes/HomeRoute';
+import PhotoDetailsModal from './routes/PhotoDetailsModal';
 import './App.scss';
 import photos from './mocks/photos';
 import topics from './mocks/topics';
@@ -6,6 +7,13 @@ import { useState } from 'react';
 
 const App = () => {
   const [favorites, setFavorites] = useState([]);
+  const [modal, setModal] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+
+  const handlePhotoClick = (photo) => {
+    setSelectedPhoto(photo);
+    setModal(true);
+  }
 
   const toggleFavorite = (photoId) => {
     setFavorites((prevFavorites) => {
@@ -23,8 +31,17 @@ const App = () => {
         photos={photos} 
         topics={topics}
         favorites={favorites}
-        toggleFavorite={toggleFavorite} 
+        toggleFavorite={toggleFavorite}
+        onPhotoClick={handlePhotoClick}
       />
+      {
+        modal && selectedPhoto && (
+          <PhotoDetailsModal
+            photo={selectedPhoto}
+            onClose={() => setModal(false)}
+          />
+        )
+      }
     </div>
   );
 };
