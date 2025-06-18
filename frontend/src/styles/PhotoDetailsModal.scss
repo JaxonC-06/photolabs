@@ -32,6 +32,7 @@
 .photo-details-modal__image {
   max-width: 95%;
   border-radius: 8px;
+  align-self: flex-end;
 }
 
 .photo-details-modal__top-bar {
@@ -48,7 +49,7 @@
   font-size: 16px;
   align-self: flex-start;
   align-items: center;
-  padding-left: 1em;
+  padding-left: 3em;
 }
 
 .photo-details-modal__header {
