@@ -39,6 +39,9 @@ const App = () => {
           <PhotoDetailsModal
             photo={selectedPhoto}
             onClose={() => setModal(false)}
+            favorites={favorites}
+            toggleFavorite={toggleFavorite}
+            onPhotoClick={handlePhotoClick}
           />
         )
       }

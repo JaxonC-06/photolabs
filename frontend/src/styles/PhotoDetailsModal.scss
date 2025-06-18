@@ -36,7 +36,7 @@
 
 .photo-details-modal__top-bar {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   margin: 16px;
   margin-top: 8px;
@@ -46,6 +46,8 @@
 .photo-details-modal__photographer-details {
   display: flex;
   font-size: 16px;
+  align-self: flex-start;
+  padding-left: 1em;
 }
 
 .photo-details-modal__header {
