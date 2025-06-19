@@ -4,12 +4,13 @@ import './App.scss';
 import photos from './mocks/photos';
 import topics from './mocks/topics';
 import useAppData from './hooks/useApplicationData.js';
+import { ACTIONS } from './hooks/useApplicationData.js';
 
 const App = () => {
   const {
     favorites,
     modal,
-    setModal,
+    dispatchModal,
     selectedPhoto,
     handlePhotoClick,
     toggleFavorite
@@ -28,7 +29,7 @@ const App = () => {
         modal && selectedPhoto && (
           <PhotoDetailsModal
             photo={selectedPhoto}
-            onClose={() => setModal(false)}
+            onClose={() => dispatchModal({type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: false })}
             favorites={favorites}
             toggleFavorite={toggleFavorite}
             onPhotoClick={handlePhotoClick}
