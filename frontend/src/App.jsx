@@ -3,27 +3,17 @@ import PhotoDetailsModal from './routes/PhotoDetailsModal';
 import './App.scss';
 import photos from './mocks/photos';
 import topics from './mocks/topics';
-import { useState } from 'react';
+import useAppData from './hooks/useApplicationData';
 
 const App = () => {
-  const [favorites, setFavorites] = useState([]);
-  const [modal, setModal] = useState(false);
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
-
-  const handlePhotoClick = (photo) => {
-    setSelectedPhoto(photo);
-    setModal(true);
-  }
-
-  const toggleFavorite = (photoId) => {
-    setFavorites((prevFavorites) => {
-      if (prevFavorites.includes(photoId)) {
-        return prevFavorites.filter(id => id !== photoId);
-      } else {
-        return [...prevFavorites, photoId]
-      }
-    });
-  };
+  const {
+    favorites,
+    modal,
+    setModal,
+    selectedPhoto,
+    handlePhotoClick,
+    toggleFavorite
+  } = useAppData();
 
   return (
     <div className="App">
