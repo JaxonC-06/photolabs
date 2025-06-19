@@ -3,7 +3,7 @@ import PhotoDetailsModal from './routes/PhotoDetailsModal';
 import './App.scss';
 import photos from './mocks/photos';
 import topics from './mocks/topics';
-import useAppData from './hooks/useApplicationData';
+import useAppData from './hooks/useApplicationData.js';
 
 const App = () => {
   const {
