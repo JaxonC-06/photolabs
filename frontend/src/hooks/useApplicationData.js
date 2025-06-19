@@ -12,16 +12,16 @@ export const ACTIONS = {
 function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.FAV_PHOTO_ADDED:
-      return [...state, action.payload.id];
+      return {...state, favorites: [...state.favorites, action.payload.id]};
     
     case ACTIONS.FAV_PHOTO_REMOVED:
-      return state.filter(id => id !== action.payload.id);
+      return {...state, favorites: state.favorites.filter(id => id !== action.payload.id)};
 
     case ACTIONS.SELECT_PHOTO:
-      return action.payload;
+      return { ...state, selectedPhoto: action.payload }
       
     case ACTIONS.DISPLAY_PHOTO_DETAILS:
-      return action.payload;  
+      return { ...state, modal: action.payload };  
 
     default:
       throw new Error(
@@ -31,34 +31,36 @@ function reducer(state, action) {
 }
 
 const useAppData = () => {
-  const [favorites, dispatchFavorites] = useReducer(reducer, []);
-  const [modal, dispatchModal] = useReducer(reducer, false);
-  const [selectedPhoto, dispatchSelectedPhoto] = useReducer(reducer, null);
+  const initialState = {
+    favorites: [],
+    modal: false,
+    selectedPhoto: null
+  };
+
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const handlePhotoClick = (photo) => {
-    dispatchSelectedPhoto({
+    dispatch({
       type: ACTIONS.SELECT_PHOTO,
       payload: photo,
     });
 
-    dispatchModal({
+    dispatch({
       type: ACTIONS.DISPLAY_PHOTO_DETAILS,
       payload: true
     })
   };
 
   const toggleFavorite = (photoId) => {
-    dispatchFavorites({
-      type: favorites.includes(photoId) ? ACTIONS.FAV_PHOTO_REMOVED : ACTIONS.FAV_PHOTO_ADDED,
+    dispatch({
+      type: state.favorites.includes(photoId) ? ACTIONS.FAV_PHOTO_REMOVED : ACTIONS.FAV_PHOTO_ADDED,
       payload: { id: photoId },
     });
   };
 
   return {
-    favorites,
-    modal,
-    dispatchModal,
-    selectedPhoto,
+    state,
+    dispatch,
     handlePhotoClick,
     toggleFavorite
   }

@@ -8,13 +8,13 @@ import { ACTIONS } from './hooks/useApplicationData.js';
 
 const App = () => {
   const {
-    favorites,
-    modal,
-    dispatchModal,
-    selectedPhoto,
+    state,
+    dispatch,
     handlePhotoClick,
     toggleFavorite
   } = useAppData();
+
+  const {favorites, modal, selectedPhoto} = state;
 
   return (
     <div className="App">
@@ -29,7 +29,7 @@ const App = () => {
         modal && selectedPhoto && (
           <PhotoDetailsModal
             photo={selectedPhoto}
-            onClose={() => dispatchModal({type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: false })}
+            onClose={() => dispatch({type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: false })}
             favorites={favorites}
             toggleFavorite={toggleFavorite}
             onPhotoClick={handlePhotoClick}
