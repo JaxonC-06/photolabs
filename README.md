@@ -5,6 +5,7 @@ Welcome to PhotoLabs! This project is a React based application that displays ph
 ## Screenshots
 
 Here is what the finished product looks like!
+
 ### Homepage
 
 This is the main app view, containing various different photos.
