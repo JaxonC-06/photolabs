@@ -16,7 +16,7 @@ This is the main app view, containing various different photos.
 
 This is the view when a topic is clicked in the Navigation. In this case, nature was clicked.
 
-![Photo Topic](https://github.com/JaxonC-06/photolabs/blob/main/docs/photolabs_topic_travel.png?raw=true)
+![Photo Topic](https://github.com/JaxonC-06/photolabs/blob/main/docs/photolabs_topic_nature.png?raw=true)
 
 ### Photo Details Modal
 
