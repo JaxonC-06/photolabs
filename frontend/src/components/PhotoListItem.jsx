@@ -1,9 +1,8 @@
 import PhotoFavButton from "./PhotoFavButton";
 import "../styles/PhotoListItem.scss";
-import { useState } from "react";
 
 const PhotoListItem = (props) => {
-  const {key, photo, favorites, toggleFavorite, onPhotoClick} = props;
+  const {photo, favorites, toggleFavorite, onPhotoClick} = props;
   const {id, location, urls, user} = photo;
 
   return (

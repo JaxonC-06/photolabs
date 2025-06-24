@@ -64,13 +64,9 @@ const useAppData = () => {
   }, []);
 
   const handleTopicClick = (topic_id) => {
-    console.log('Topic ID: ', topic_id)
     fetch(`/api/topics/${topic_id}/photos`)
       .then((response) => response.json())
-      .then((data) => {
-        console.log("Fetched photos: ", data)
-        dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: data })
-      })
+      .then((data) => dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: data }))
       .catch((error) => console.error('Error fetching photos:', error))
   };
 

@@ -3,7 +3,7 @@ import FavBadge from './FavBadge';
 import '../styles/TopNavigationBar.scss'
 
 const TopNavigation = (props) => {
-  const { topics, favorites, toggleFavorite, handleTopicClick } = props;
+  const { topics, favorites, handleTopicClick } = props;
   
   return (
     <div className="top-nav-bar">
