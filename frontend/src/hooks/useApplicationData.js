@@ -6,7 +6,8 @@ export const ACTIONS = {
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   SELECT_PHOTO: 'SELECT_PHOTO',
-  DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
+  DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
+  GET_PHOTOS_BY_TOPICS: 'GET_PHOTOS_BY_TOPICS'
 }
 
 function reducer(state, action) {
@@ -28,6 +29,9 @@ function reducer(state, action) {
 
      case ACTIONS.SET_TOPIC_DATA:
       return { ...state, topicData: action.payload};
+
+     case ACTIONS.GET_PHOTOS_BY_TOPICS:
+      return { ...state, photoData: action.payload }
 
     default:
       throw new Error(
@@ -59,6 +63,17 @@ const useAppData = () => {
       .then((data) => dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data }))
   }, []);
 
+  const handleTopicClick = (topic_id) => {
+    console.log('Topic ID: ', topic_id)
+    fetch(`/api/topics/${topic_id}/photos`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Fetched photos: ", data)
+        dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: data })
+      })
+      .catch((error) => console.error('Error fetching photos:', error))
+  };
+
   const handlePhotoClick = (photo) => {
     dispatch({
       type: ACTIONS.SELECT_PHOTO,
@@ -82,6 +97,7 @@ const useAppData = () => {
     state,
     dispatch,
     handlePhotoClick,
+    handleTopicClick,
     toggleFavorite
   }
 }

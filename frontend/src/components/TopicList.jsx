@@ -2,13 +2,15 @@ import "../styles/TopicList.scss";
 import TopicListItem from "./TopicListItem";
 
 const TopicList = (props) => {
-  const { topics } = props;
+  const { topics, handleTopicClick } = props;
   
   const topicMap = topics.map((topic) => (
     <TopicListItem 
-      key={topic.id} 
+      key={topic.id}
+      id={topic.id}
       slug={topic.slug} 
-      label={topic.title} 
+      label={topic.title}
+      handleTopicClick={handleTopicClick}
     />
   ));
 

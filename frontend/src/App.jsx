@@ -9,6 +9,7 @@ const App = () => {
     state,
     dispatch,
     handlePhotoClick,
+    handleTopicClick,
     toggleFavorite
   } = useAppData();
 
@@ -21,6 +22,7 @@ const App = () => {
         topics={topicData}
         favorites={favorites}
         toggleFavorite={toggleFavorite}
+        handleTopicClick={handleTopicClick}
         onPhotoClick={handlePhotoClick}
       />
       {
