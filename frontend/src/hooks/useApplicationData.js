@@ -7,7 +7,9 @@ export const ACTIONS = {
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   SELECT_PHOTO: 'SELECT_PHOTO',
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
-  GET_PHOTOS_BY_TOPICS: 'GET_PHOTOS_BY_TOPICS'
+  GET_PHOTOS_BY_TOPICS: 'GET_PHOTOS_BY_TOPICS',
+  SET_SEARCH_RESULTS: 'SET_SEARCH_RESULTS',
+  SET_SEARCH_DATA: 'SET_SEARCH_DATA'
 }
 
 function reducer(state, action) {
@@ -27,11 +29,17 @@ function reducer(state, action) {
     case ACTIONS.SET_PHOTO_DATA:
       return { ...state, photoData: action.payload };
 
-     case ACTIONS.SET_TOPIC_DATA:
+    case ACTIONS.SET_TOPIC_DATA:
       return { ...state, topicData: action.payload};
 
-     case ACTIONS.GET_PHOTOS_BY_TOPICS:
-      return { ...state, photoData: action.payload }
+    case ACTIONS.GET_PHOTOS_BY_TOPICS:
+      return { ...state, photoData: action.payload };
+
+    case ACTIONS.SET_SEARCH_RESULTS:
+      return { ...state, searchResults: action.payload };
+
+    case ACTIONS.SET_SEARCH_DATA:
+      return { ...state, searchValue: action.payload };
 
     default:
       throw new Error(
@@ -40,13 +48,16 @@ function reducer(state, action) {
   }
 }
 
+// Add searchValue, searchSuggestions for searchBar
 const useAppData = () => {
   const initialState = {
     favorites: [],
     modal: false,
     selectedPhoto: null,
     photoData: [],
-    topicData: []
+    topicData: [],
+    searchValue: '',
+    searchResults: []
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -62,6 +73,28 @@ const useAppData = () => {
       .then((response) => response.json())
       .then((data) => dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data }))
   }, []);
+
+  // Suggestions for searches
+
+  // Add useEffect hook to track searchBar
+  useEffect(() => {
+    const fetchSearchData = async () => {
+      try {
+        const response = await fetch(`/api/photos/search?searchValue=${encodeURIComponent(state.searchValue)}`);
+        if (!response.ok) {
+          console.log('Network response was not ok. Status: ', response);
+        }
+        const data = await response.json();
+        dispatch({ type: ACTIONS.SET_SEARCH_RESULTS, payload: data });
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+
+    if (state.searchValue) {
+      fetchSearchData();
+    }
+  }, [state.searchValue]);
 
   const handleTopicClick = (topic_id) => {
     fetch(`/api/topics/${topic_id}/photos`)

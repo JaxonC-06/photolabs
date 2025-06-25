@@ -13,7 +13,7 @@ const App = () => {
     toggleFavorite
   } = useAppData();
 
-  const {favorites, modal, selectedPhoto, photoData, topicData} = state;
+  const {favorites, modal, selectedPhoto, photoData, topicData, searchValue, searchResults} = state;
 
   return (
     <div className="App">
@@ -21,6 +21,9 @@ const App = () => {
         photos={photoData} 
         topics={topicData}
         favorites={favorites}
+        searchValue={searchValue}
+        searchResults={searchResults}
+        dispatch={dispatch}
         toggleFavorite={toggleFavorite}
         handleTopicClick={handleTopicClick}
         onPhotoClick={handlePhotoClick}

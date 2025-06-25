@@ -60,5 +60,43 @@ module.exports = db => {
     });
   });
 
+  router.get("/photos/search", (request, response) => {
+    const query = request.query.searchValue;
+
+    db.query(`
+      SELECT photo.*, user_account.username, user_account.fullname, user_account.profile_url FROM photo 
+      JOIN user_account ON photo.user_id = user_account.id
+      WHERE city ILIKE $1 
+      OR country ILIKE $1
+      OR fullname ILIKE $1
+      OR username ILIKE $1
+    `, [`%${query}%`])
+      .then(({rows}) => {
+        const photoMap = rows.map((photo) => {
+          return ({
+            id: photo.id,
+            urls: {
+              full: `http://localhost:8001/images/${photo.full_url}`,
+              regular: `http://localhost:8001/images/${photo.regular_url}`
+            },
+            user: {
+              username:photo.username,
+              name: photo.fullname,
+              profile: `http://localhost:8001/images/${photo.profile_url}`
+            },
+            location: {
+              city: photo.city,
+              country: photo.country
+            }
+          })
+        })
+        response.json(photoMap)
+      })
+      .catch(error => {
+        console.error("Error executing search query", error.stack);
+        response.status(500).send('Server Error');
+      });
+  });
+
   return router;
 };
