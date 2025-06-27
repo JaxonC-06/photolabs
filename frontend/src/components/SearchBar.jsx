@@ -1,5 +1,6 @@
 // C.Y.O.A. SearchBar
 import "../styles/SearchBar.scss"
+import searchLogo from "../assets/search-svgrepo-com.svg";
 import { ACTIONS } from "../hooks/useApplicationData";
 
 const SearchBar = (props) => {
@@ -18,13 +19,17 @@ const SearchBar = (props) => {
 
   return (
     <div className="search-bar">
-      <input 
-        type="text"
-        placeholder="Search photos..."
-        value={searchValue}
-        onChange={handleChange}
-        onKeyDown={handleEnter}
-      />
+      <div className="search-bar__container">
+        <img src={searchLogo} alt="looking-glass" className="search-bar__search-icon" />
+        <input 
+          type="text"
+          className="search-bar__search-input"
+          placeholder="Search photos..."
+          value={searchValue}
+          onChange={handleChange}
+          onKeyDown={handleEnter}
+        />
+      </div>
     </div>
   );
 };
